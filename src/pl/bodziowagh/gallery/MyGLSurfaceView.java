@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 
 class MyGLSurfaceView extends GLSurfaceView {
 
-	private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
+	private final float TOUCH_SCALE_FACTOR = 180.0f / 400;
 	private float mPreviousX;
 	private float mPreviousY;
 
@@ -28,25 +28,14 @@ class MyGLSurfaceView extends GLSurfaceView {
 
 		switch (e.getAction()) {
 		case MotionEvent.ACTION_MOVE:
-
+			renderer.setScreenTouched(true);
 			float dx = x - mPreviousX;
-			// float dy = y - mPreviousY;
-
-			// reverse direction of rotation above the mid-line
-			/*
-			 * if (y > getHeight() / 2) { dx = dx * -1; }
-			 * 
-			 * // reverse direction of rotation to left of the mid-line if (x <
-			 * getWidth() / 2) { dy = dy * -1; }
-			 */
-
-			renderer.setAngle(renderer.getAngle()
-					+ ((dx /* + dy */) * TOUCH_SCALE_FACTOR));
-
+			renderer.setAngleDifference((dx * TOUCH_SCALE_FACTOR));
+		case MotionEvent.ACTION_CANCEL:
+			renderer.setScreenTouched(false);
 		}
 
 		mPreviousX = x;
-		// mPreviousY = y;
 		return true;
 
 	}

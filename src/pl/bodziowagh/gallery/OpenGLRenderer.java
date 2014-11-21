@@ -28,6 +28,8 @@ public class OpenGLRenderer implements Renderer {
 	private final Group root;
 
 	private float mAngle = 0;
+	private float angleDifference = 0;
+	private boolean isScreenTouched = false;
 
 	private final Bitmap texture1, texture2;
 	int textureCounter = 0;
@@ -80,8 +82,21 @@ public class OpenGLRenderer implements Renderer {
 		gl.glRotatef(20, 1, 0, 0);
 		gl.glTranslatef(0, 0, -5);
 
-		// Rotate them
-		// mAngle += 0.7;
+		// Update angle
+		final float slowdownRate = 0.1f;
+		if ((isScreenTouched == false) && (Math.abs(mAngle) > 0)) {
+			if (angleDifference > 0) {
+				angleDifference -= slowdownRate;
+			} else {
+				angleDifference += slowdownRate;
+			}
+
+			if (Math.abs(angleDifference) <= slowdownRate) {
+				angleDifference = 0;
+			}
+		}
+		mAngle += angleDifference;
+
 		textureCounter++;
 
 		gl.glRotatef(mAngle, 0, 1, 0);
@@ -93,7 +108,6 @@ public class OpenGLRenderer implements Renderer {
 			} else if ((textureCounter % 10 == 0) && (textureCounter % 20 != 0)) {
 				root.get(i).loadBitmap(this.texture2);
 			}
-
 		}
 
 		gl.glTranslatef(0, -1.5f, 0);
@@ -145,5 +159,13 @@ public class OpenGLRenderer implements Renderer {
 	 */
 	public void setAngle(float angle) {
 		mAngle = angle;
+	}
+
+	public void setAngleDifference(float angleDifference) {
+		this.angleDifference = angleDifference;
+	}
+
+	public void setScreenTouched(boolean isScreenTouched) {
+		this.isScreenTouched = isScreenTouched;
 	}
 }
