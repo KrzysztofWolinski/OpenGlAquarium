@@ -28,9 +28,6 @@ public class OpenGLRenderer implements Renderer {
 	private final Group root;
 
 	private float mAngle = 0;
-	private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
-	private float mPreviousX;
-	private float mPreviousY;
 
 	private final Bitmap texture1, texture2;
 	int textureCounter = 0;
@@ -84,7 +81,7 @@ public class OpenGLRenderer implements Renderer {
 		gl.glTranslatef(0, 0, -5);
 
 		// Rotate them
-		mAngle += 0.7;
+		// mAngle += 0.7;
 		textureCounter++;
 
 		gl.glRotatef(mAngle, 0, 1, 0);
@@ -128,30 +125,6 @@ public class OpenGLRenderer implements Renderer {
 		// Reset the modelview matrix
 		gl.glLoadIdentity();
 	}
-
-	/*
-	 * public boolean onTouchEvent(MotionEvent e) { float x = e.getX(); float y
-	 * = e.getY();
-	 * 
-	 * switch (e.getAction()) { case MotionEvent.ACTION_MOVE:
-	 * 
-	 * float dx = x - mPreviousX; float dy = y - mPreviousY;
-	 * 
-	 * // reverse direction of rotation above the mid-line if (y > 400 / 2) { dx
-	 * = dx * -1; }
-	 * 
-	 * // reverse direction of rotation to left of the mid-line if (x < 550 / 2)
-	 * { dy = dy * -1; }
-	 * 
-	 * this.setAngle(getAngle() + ((dx + dy) * TOUCH_SCALE_FACTOR)); // = //
-	 * 180.0f // / // 320
-	 * 
-	 * }
-	 * 
-	 * mPreviousX = x; mPreviousY = y; return true;
-	 * 
-	 * }
-	 */
 
 	/**
 	 * Adds a mesh to the root.

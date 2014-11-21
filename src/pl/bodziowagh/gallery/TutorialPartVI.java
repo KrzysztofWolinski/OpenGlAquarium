@@ -23,7 +23,6 @@ import pl.bodziowagh.gallery.mesh.builder.SimplePlaneBuilder;
 import se.jayway.opengl.tutorial.R;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,7 +49,7 @@ public class TutorialPartVI extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		// Create a OpenGL view.
-		GLSurfaceView view = new GLSurfaceView(this);
+		MyGLSurfaceView view = new MyGLSurfaceView(this);
 
 		// Creating and attaching the renderer.
 		OpenGLRenderer renderer = new OpenGLRenderer(
@@ -58,6 +57,8 @@ public class TutorialPartVI extends Activity {
 				BitmapFactory.decodeResource(getResources(), R.drawable.jay2));
 		view.setRenderer(renderer);
 		setContentView(view);
+
+		view.start(renderer);
 
 		List<SimplePlane> planeList = new ArrayList<SimplePlane>();
 
