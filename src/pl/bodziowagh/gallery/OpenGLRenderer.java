@@ -29,6 +29,7 @@ public class OpenGLRenderer implements Renderer {
 
 	private float mAngle = 0;
 	private float angleDifference = 0;
+	private final float maxAngleDifference = 10;
 	private boolean isScreenTouched = false;
 
 	private final Bitmap texture1, texture2;
@@ -162,7 +163,12 @@ public class OpenGLRenderer implements Renderer {
 	}
 
 	public void setAngleDifference(float angleDifference) {
-		this.angleDifference = angleDifference;
+		if (Math.abs(angleDifference) > maxAngleDifference) {
+			this.angleDifference = (angleDifference / Math.abs(angleDifference))
+					* maxAngleDifference;
+		} else {
+			this.angleDifference = angleDifference;
+		}
 	}
 
 	public void setScreenTouched(boolean isScreenTouched) {
