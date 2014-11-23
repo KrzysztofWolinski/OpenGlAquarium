@@ -37,6 +37,11 @@ public class SimplePlaneBuilder {
 		return this;
 	}
 
+	public SimplePlaneBuilder withDeathBitmap(Bitmap bitmap) {
+		simplePlane.setDeathBitmap(bitmap);
+		return this;
+	}
+
 	public SimplePlane build() {
 		return simplePlane;
 	}

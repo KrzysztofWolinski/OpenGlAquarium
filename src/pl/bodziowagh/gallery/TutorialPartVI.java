@@ -77,7 +77,10 @@ public class TutorialPartVI extends Activity {
 					.withInitialRotation(0, 0, 0)
 					.withBitmap(
 							BitmapFactory.decodeResource(getResources(),
-									R.drawable.jay)).build());
+									R.drawable.jay))
+					.withDeathBitmap(
+							BitmapFactory.decodeResource(getResources(),
+									R.drawable.dead_jay)).build());
 
 			renderer.addMesh(planeList.get(i));
 		}

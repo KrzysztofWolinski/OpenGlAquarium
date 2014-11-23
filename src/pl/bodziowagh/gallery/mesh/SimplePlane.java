@@ -15,6 +15,8 @@
  */
 package pl.bodziowagh.gallery.mesh;
 
+import android.graphics.Bitmap;
+
 /**
  * SimplePlane is a setup class for Mesh that creates a plane mesh.
  * 
@@ -22,6 +24,10 @@ package pl.bodziowagh.gallery.mesh;
  * 
  */
 public class SimplePlane extends Mesh {
+
+	private boolean isAlive = true;
+	private Bitmap deathBitmap;
+
 	/**
 	 * Create a plane with a default with and height of 1 unit.
 	 */
@@ -53,5 +59,18 @@ public class SimplePlane extends Mesh {
 		setIndices(indices);
 		setVertices(vertices);
 		setTextureCoordinates(textureCoordinates);
+	}
+
+	public void setDeathBitmap(Bitmap bitmap) {
+		this.deathBitmap = bitmap;
+	}
+
+	public void killJay() {
+		this.isAlive = false;
+		this.loadBitmap(this.deathBitmap);
+	}
+
+	public boolean isAlive() {
+		return this.isAlive;
 	}
 }

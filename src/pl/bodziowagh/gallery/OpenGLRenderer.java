@@ -20,6 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import pl.bodziowagh.gallery.mesh.Group;
 import pl.bodziowagh.gallery.mesh.Mesh;
+import pl.bodziowagh.gallery.mesh.SimplePlane;
 import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
@@ -104,10 +105,13 @@ public class OpenGLRenderer implements Renderer {
 		for (int i = 0; i < root.size(); i++) {
 			root.get(i).ry = -mAngle;
 
-			if ((textureCounter % 10 == 0) && (textureCounter % 20 == 0)) {
-				root.get(i).loadBitmap(this.texture1);
-			} else if ((textureCounter % 10 == 0) && (textureCounter % 20 != 0)) {
-				root.get(i).loadBitmap(this.texture2);
+			if (((SimplePlane) root.get(i)).isAlive()) {
+				if ((textureCounter % 10 == 0) && (textureCounter % 20 == 0)) {
+					root.get(i).loadBitmap(this.texture1);
+				} else if ((textureCounter % 10 == 0)
+						&& (textureCounter % 20 != 0)) {
+					root.get(i).loadBitmap(this.texture2);
+				}
 			}
 		}
 
@@ -176,6 +180,33 @@ public class OpenGLRenderer implements Renderer {
 	}
 
 	public void clickOccured(float x, float y) {
+		int closestPlaneIndex = 0;
 
+		/*
+		 * float factor = 1;// (float) Math.cos(((Math.PI / 180) * mAngle));
+		 * 
+		 * float closestZ = root.get(0).z + factor;
+		 * 
+		 * for (int i = 1; i < root.size(); i++) { factor = (float)
+		 * Math.cos(((Math.PI / 180) * mAngle)); float currentZ = root.get(i).z
+		 * + factor;
+		 * 
+		 * if (root.get(i).z < root.get(closestPlaneIndex).z) {
+		 * closestPlaneIndex = i; closestZ = currentZ; } }
+		 */
+
+		float angle = mAngle % 360;
+
+		while (angle < 0) {
+			angle += 360;
+		}
+
+		float pizzaPiece = 360 / root.size();
+
+		closestPlaneIndex = root.size() - ((int) (angle / pizzaPiece)) - 1;
+
+		if (closestPlaneIndex >= 0 && closestPlaneIndex < 9) {
+			((SimplePlane) root.get(closestPlaneIndex)).killJay();
+		}
 	}
 }
