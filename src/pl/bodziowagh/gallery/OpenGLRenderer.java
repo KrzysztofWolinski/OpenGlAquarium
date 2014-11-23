@@ -174,4 +174,8 @@ public class OpenGLRenderer implements Renderer {
 	public void setScreenTouched(boolean isScreenTouched) {
 		this.isScreenTouched = isScreenTouched;
 	}
+
+	public void clickOccured(float x, float y) {
+
+	}
 }

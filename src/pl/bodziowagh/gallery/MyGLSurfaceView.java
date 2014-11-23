@@ -30,14 +30,27 @@ class MyGLSurfaceView extends GLSurfaceView {
 		case MotionEvent.ACTION_MOVE:
 			renderer.setScreenTouched(true);
 			float dx = x - mPreviousX;
-			renderer.setAngleDifference((dx * TOUCH_SCALE_FACTOR));
+
+			if (Math.abs(dx) < 1) {
+				this.clickEvent(x, y);
+			} else {
+				this.swipeEvent(dx);
+			}
+
 		case MotionEvent.ACTION_CANCEL:
 			renderer.setScreenTouched(false);
 		}
 
 		mPreviousX = x;
 		return true;
+	}
 
+	private void swipeEvent(float dx) {
+		renderer.setAngleDifference((dx * TOUCH_SCALE_FACTOR));
+	}
+
+	private void clickEvent(float x, float y) {
+		this.renderer.clickOccured(x, y);
 	}
 
 	protected OpenGLRenderer getRenderer() {
