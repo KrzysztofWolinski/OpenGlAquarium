@@ -101,7 +101,10 @@ public class OpenGLRenderer implements Renderer {
 
 		textureCounter++;
 
+		// Rotating the whole scene (objects)
 		gl.glRotatef(mAngle, 0, 1, 0);
+
+		// Rotating every object so they're visible to the spectator
 		for (int i = 0; i < root.size(); i++) {
 			root.get(i).ry = -mAngle;
 
@@ -182,28 +185,15 @@ public class OpenGLRenderer implements Renderer {
 	public void clickOccured(float x, float y) {
 		int closestPlaneIndex = 0;
 
-		/*
-		 * float factor = 1;// (float) Math.cos(((Math.PI / 180) * mAngle));
-		 * 
-		 * float closestZ = root.get(0).z + factor;
-		 * 
-		 * for (int i = 1; i < root.size(); i++) { factor = (float)
-		 * Math.cos(((Math.PI / 180) * mAngle)); float currentZ = root.get(i).z
-		 * + factor;
-		 * 
-		 * if (root.get(i).z < root.get(closestPlaneIndex).z) {
-		 * closestPlaneIndex = i; closestZ = currentZ; } }
-		 */
-
 		float angle = mAngle % 360;
-
 		while (angle < 0) {
 			angle += 360;
 		}
 
 		float pizzaPiece = 360 / root.size();
 
-		closestPlaneIndex = root.size() - ((int) (angle / pizzaPiece)) - 1;
+		closestPlaneIndex = (root.size() - ((int) (angle / pizzaPiece)))
+				% root.size();
 
 		if (closestPlaneIndex >= 0 && closestPlaneIndex < 9) {
 			((SimplePlane) root.get(closestPlaneIndex)).killJay();
