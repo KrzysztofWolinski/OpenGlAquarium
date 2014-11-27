@@ -30,7 +30,12 @@ class MyGLSurfaceView extends GLSurfaceView {
 
 		switch (e.getAction()) {
 		case MotionEvent.ACTION_UP:
-			if (this.screenState == ScreenState.IDLE) {
+			if (this.screenState != ScreenState.SWIPING) {
+				if (this.screenState == ScreenState.BLOCKED) {
+					this.screenState = ScreenState.IDLE;
+				} else {
+					this.screenState = ScreenState.BLOCKED;
+				}
 				this.clickEvent(x, y);
 			} else {
 				this.screenState = ScreenState.IDLE;
@@ -38,11 +43,13 @@ class MyGLSurfaceView extends GLSurfaceView {
 			renderer.setScreenTouched(false);
 			break;
 		case MotionEvent.ACTION_MOVE:
-			renderer.setScreenTouched(true);
-			float dx = x - mPreviousX;
+			if (this.screenState != ScreenState.BLOCKED) {
+				renderer.setScreenTouched(true);
+				float dx = x - mPreviousX;
 
-			this.screenState = ScreenState.SWIPING;
-			this.swipeEvent(dx);
+				this.screenState = ScreenState.SWIPING;
+				this.swipeEvent(dx);
+			}
 			break;
 		}
 

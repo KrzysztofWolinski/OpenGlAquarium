@@ -27,6 +27,7 @@ public class SimplePlane extends Mesh {
 
 	private boolean isAlive = true;
 	private Bitmap deathBitmap;
+	private boolean isResized = false;
 
 	/**
 	 * Create a plane with a default with and height of 1 unit.
@@ -72,5 +73,49 @@ public class SimplePlane extends Mesh {
 
 	public boolean isAlive() {
 		return this.isAlive;
+	}
+
+	public void resize() {
+		if (this.isResized) {
+			this.resizeShrink();
+			this.isResized = false;
+		} else {
+			this.resizeEnlarge();
+			this.isResized = true;
+		}
+	}
+
+	private void resizeEnlarge() {
+		float textureCoordinates[] = { 0.0f, 1.0f, //
+				1.0f, 1.0f, //
+				0.0f, 0.0f, //
+				1.0f, 0.0f, //
+		};
+
+		short[] indices = new short[] { 0, 1, 2, 1, 3, 2 };
+
+		float[] vertices = new float[] { -0.8f, -0.8f, 0.0f, 0.8f, -0.8f, 0.0f,
+				-0.8f, 0.8f, 0.0f, 0.8f, 0.8f, 0.0f };
+
+		setIndices(indices);
+		setVertices(vertices);
+		setTextureCoordinates(textureCoordinates);
+	}
+
+	private void resizeShrink() {
+		float textureCoordinates[] = { 0.0f, 1.0f, //
+				1.0f, 1.0f, //
+				0.0f, 0.0f, //
+				1.0f, 0.0f, //
+		};
+
+		short[] indices = new short[] { 0, 1, 2, 1, 3, 2 };
+
+		float[] vertices = new float[] { -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f,
+				-0.5f, 0.5f, 0.0f, 0.5f, 0.5f, 0.0f };
+
+		setIndices(indices);
+		setVertices(vertices);
+		setTextureCoordinates(textureCoordinates);
 	}
 }

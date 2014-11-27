@@ -45,13 +45,6 @@ public class OpenGLRenderer implements Renderer {
 		this.texture2 = texture2;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.opengl.GLSurfaceView.Renderer#onSurfaceCreated(javax.microedition
-	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
-	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// Set the background color to black ( rgba ).
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
@@ -67,13 +60,6 @@ public class OpenGLRenderer implements Renderer {
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.opengl.GLSurfaceView.Renderer#onDrawFrame(javax.microedition.
-	 * khronos.opengles.GL10)
-	 */
 	public void onDrawFrame(GL10 gl) {
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
@@ -125,13 +111,6 @@ public class OpenGLRenderer implements Renderer {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.opengl.GLSurfaceView.Renderer#onSurfaceChanged(javax.microedition
-	 * .khronos.opengles.GL10, int, int)
-	 */
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
@@ -185,18 +164,18 @@ public class OpenGLRenderer implements Renderer {
 	public void clickOccured(float x, float y) {
 		int closestPlaneIndex = 0;
 
-		float angle = mAngle % 360;
+		float pizzaPiece = 360 / root.size();
+
+		float angle = mAngle % 360 + (pizzaPiece / 2);
 		while (angle < 0) {
 			angle += 360;
 		}
-
-		float pizzaPiece = 360 / root.size();
 
 		closestPlaneIndex = (root.size() - ((int) (angle / pizzaPiece)))
 				% root.size();
 
 		if (closestPlaneIndex >= 0 && closestPlaneIndex < 9) {
-			((SimplePlane) root.get(closestPlaneIndex)).killJay();
+			((SimplePlane) root.get(closestPlaneIndex)).resize();
 		}
 	}
 }

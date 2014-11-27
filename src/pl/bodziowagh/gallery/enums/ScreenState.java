@@ -2,7 +2,7 @@ package pl.bodziowagh.gallery.enums;
 
 public enum ScreenState {
 
-	IDLE("idle"), SWIPING("swiping");
+	BLOCKED("blocked"), IDLE("idle"), SWIPING("swiping");
 
 	private String value;
 
