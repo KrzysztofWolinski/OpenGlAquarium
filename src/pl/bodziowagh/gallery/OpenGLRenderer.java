@@ -21,7 +21,6 @@ import javax.microedition.khronos.opengles.GL10;
 import pl.bodziowagh.gallery.mesh.Group;
 import pl.bodziowagh.gallery.mesh.Mesh;
 import pl.bodziowagh.gallery.mesh.SimplePlane;
-import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
 
@@ -33,16 +32,13 @@ public class OpenGLRenderer implements Renderer {
 	private final float maxAngleDifference = 10;
 	private boolean isScreenTouched = false;
 
-	private final Bitmap texture1, texture2;
 	int textureCounter = 0;
 
-	public OpenGLRenderer(Bitmap texture1, Bitmap texture2) {
+	public OpenGLRenderer() {
 		// Initialize our root.
 		Group group = new Group();
 		root = group;
 
-		this.texture1 = texture1;
-		this.texture2 = texture2;
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -95,11 +91,8 @@ public class OpenGLRenderer implements Renderer {
 			root.get(i).ry = -mAngle;
 
 			if (((SimplePlane) root.get(i)).isAlive()) {
-				if ((textureCounter % 10 == 0) && (textureCounter % 20 == 0)) {
-					root.get(i).loadBitmap(this.texture1);
-				} else if ((textureCounter % 10 == 0)
-						&& (textureCounter % 20 != 0)) {
-					root.get(i).loadBitmap(this.texture2);
+				if (textureCounter % 20 == 0) {
+					((SimplePlane) (root.get(i))).swapTextures();
 				}
 			}
 		}

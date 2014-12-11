@@ -32,8 +32,9 @@ public class SimplePlaneBuilder {
 		return this;
 	}
 
-	public SimplePlaneBuilder withBitmap(Bitmap bitmap) {
-		simplePlane.loadBitmap(bitmap);
+	public SimplePlaneBuilder withBitmaps(Bitmap bitmap1, Bitmap bitmap2) {
+		simplePlane.setTextures(bitmap1, bitmap2);
+		simplePlane.loadBitmap(bitmap1);
 		return this;
 	}
 

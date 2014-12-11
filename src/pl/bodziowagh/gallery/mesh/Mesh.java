@@ -262,4 +262,8 @@ public class Mesh {
 		// from our bitmap
 		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, mBitmap, 0);
 	}
+
+	public void doStuff() {
+
+	}
 }

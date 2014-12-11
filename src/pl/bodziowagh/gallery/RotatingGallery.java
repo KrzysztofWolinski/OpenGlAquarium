@@ -30,9 +30,7 @@ public class RotatingGallery extends Activity {
 		MyGLSurfaceView view = new MyGLSurfaceView(this);
 
 		// Creating and attaching the renderer.
-		OpenGLRenderer renderer = new OpenGLRenderer(
-				BitmapFactory.decodeResource(getResources(), R.drawable.jay),
-				BitmapFactory.decodeResource(getResources(), R.drawable.jay2));
+		OpenGLRenderer renderer = new OpenGLRenderer();
 		view.setRenderer(renderer);
 		setContentView(view);
 
@@ -48,17 +46,51 @@ public class RotatingGallery extends Activity {
 			double z = Math.cos((2 * Math.PI) * i / listSize) * radius;
 			double y = 0;
 
-			planeList.add(new SimplePlaneBuilder(1, 1)
-					.withX((float) x)
-					.withY((float) y)
-					.withZ((float) z)
-					.withInitialRotation(0, 0, 0)
-					.withBitmap(
-							BitmapFactory.decodeResource(getResources(),
-									R.drawable.jay))
-					.withDeathBitmap(
-							BitmapFactory.decodeResource(getResources(),
-									R.drawable.dead_jay)).build());
+			double determiner = Math.random();
+			if (determiner < 0.3) {
+
+				planeList.add(new SimplePlaneBuilder(1, 1)
+						.withX((float) x)
+						.withY((float) y)
+						.withZ((float) z)
+						.withInitialRotation(0, 0, 0)
+						.withBitmaps(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.jay),
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.jay2))
+						.withDeathBitmap(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.dead_jay)).build());
+			} else if (determiner < 0.6) {
+				planeList.add(new SimplePlaneBuilder(1, 1)
+						.withX((float) x)
+						.withY((float) y)
+						.withZ((float) z)
+						.withInitialRotation(0, 0, 0)
+						.withBitmaps(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.pokemon1),
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.pokemon2))
+						.withDeathBitmap(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.dead_jay)).build());
+			} else {
+				planeList.add(new SimplePlaneBuilder(1, 1)
+						.withX((float) x)
+						.withY((float) y)
+						.withZ((float) z)
+						.withInitialRotation(0, 0, 0)
+						.withBitmaps(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.cat1),
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.cat2))
+						.withDeathBitmap(
+								BitmapFactory.decodeResource(getResources(),
+										R.drawable.dead_jay)).build());
+			}
 
 			renderer.addMesh(planeList.get(i));
 		}
